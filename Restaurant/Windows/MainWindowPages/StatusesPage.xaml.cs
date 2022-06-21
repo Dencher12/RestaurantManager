@@ -19,9 +19,9 @@ namespace Restaurant.Windows.MainWindowPages
     /// <summary>
     /// Логика взаимодействия для StatusesPage.xaml
     /// </summary>
-    public partial class SuppliesPage : Page
+    public partial class StatusesPage : Page
     {
-        public SuppliesPage()
+        public StatusesPage()
         {
             InitializeComponent();
             FetchData();
@@ -31,24 +31,24 @@ namespace Restaurant.Windows.MainWindowPages
         {
             using (RestaurantManagerContext context = new RestaurantManagerContext())
             {
-                var sup = context.Supplies.ToList();
-                SuppliesList.ItemsSource = sup;
+                var statuses = context.SupplyStatuses.ToList();
+                StatusesList.ItemsSource = statuses;
             }
         }
 
         private void OnEdit(object sender, RoutedEventArgs e)
         {
             var dataContext = ((Button)sender).DataContext;
-            Supply clone = (Supply)((Supply)dataContext).Clone();
-            EditSupplyWindow editSupplyWindow = new EditSupplyWindow() { DataContext = clone };
-            editSupplyWindow.ShowDialog();
+            SupplyStatus clone = (SupplyStatus)((SupplyStatus) dataContext).Clone();
+            EditStatusWindow editStatusWindow = new EditStatusWindow() { DataContext = clone };
+            editStatusWindow.ShowDialog();
 
-            if (editSupplyWindow.DialogResult == true)
+            if (editStatusWindow.DialogResult == true)
             {
-                Supply sup = (Supply) editSupplyWindow.DataContext;
+                SupplyStatus status = (SupplyStatus) editStatusWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Update(sup);
+                    context.SupplyStatuses.Update(status);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -57,16 +57,16 @@ namespace Restaurant.Windows.MainWindowPages
 
         private void OnAdd(object sender, RoutedEventArgs e)
         {
-            EditSupplyWindow editSupplyWindow = new EditSupplyWindow() { DataContext = new Supply() };
-            editSupplyWindow.Title = "Добавление новой поставки";
-            editSupplyWindow.ShowDialog();
+            EditStatusWindow editProductWindow = new EditStatusWindow() { DataContext = new SupplyStatus() };
+            editProductWindow.Title = "Добавление нового статуса поставки";
+            editProductWindow.ShowDialog();
 
-            if (editSupplyWindow.DialogResult == true)
+            if (editProductWindow.DialogResult == true)
             {
-                Supply sup = (Supply)editSupplyWindow.DataContext;
+                SupplyStatus status = (SupplyStatus) editProductWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Add(sup);
+                    context.SupplyStatuses.Add(status);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -75,17 +75,17 @@ namespace Restaurant.Windows.MainWindowPages
 
         private void OnDelete(object sender, RoutedEventArgs e)
         {
-            Supply supply = ((Supply)((Button)sender).DataContext);
+            SupplyStatus status = ((SupplyStatus)((Button)sender).DataContext);
             MessageBoxResult result = MessageBox.Show(
-                "Вы действительно хотите удалить поставку? \"" + supply.Date + " \" ?",
-                "Удаление поставки",
+                "Вы действительно хотите удалить продукт \"" + status.Title + " \" ?",
+                "Удаление пользователя",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Remove(supply);
+                    context.SupplyStatuses.Remove(status);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -98,8 +98,8 @@ namespace Restaurant.Windows.MainWindowPages
             String searchString = SearchField.Text;
             using (RestaurantManagerContext context = new RestaurantManagerContext())
             {
-                var sup = context.Supplies.Where(u => u.Date.ToString().Contains(searchString)).ToList();
-                SuppliesList.ItemsSource = sup;
+                var products = context.SupplyStatuses.Where(u => u.Title.Contains(searchString)).ToList();
+                StatusesList.ItemsSource = products;
             }
         }
     }

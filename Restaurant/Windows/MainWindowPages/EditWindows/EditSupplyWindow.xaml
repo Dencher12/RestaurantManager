@@ -1,0 +1,28 @@
+﻿<Window x:Class="Restaurant.Windows.MainWindowPages.EditWindows.EditSupplyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant.Windows.MainWindowPages.EditWindows"
+        mc:Ignorable="d"
+        Title="Редактирование статуса поставки" Height="130" Width="308"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource Background}">
+    <Grid>
+        <StackPanel Margin="4" Orientation="Vertical">
+            <Label FontSize="16" Padding="0">Дата поставки</Label>
+            <DatePicker x:Name="datePick" Text="{Binding Date}"></DatePicker>
+
+            <Grid Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button FontSize="16" Click="OnSave">Сохранить</Button>
+                <Button FontSize="16"  Click="OnCancel" Grid.Column="1">Отменить</Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

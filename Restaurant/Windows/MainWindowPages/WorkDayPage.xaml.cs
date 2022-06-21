@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,15 @@ using System.Windows.Shapes;
 namespace Restaurant.Windows.MainWindowPages
 {
     /// <summary>
-    /// Логика взаимодействия для FinancePage.xaml
+    /// Логика взаимодействия для WorkDayPage.xaml
     /// </summary>
-    public partial class FinancePage : Page
+    public partial class WorkDayPage : Page
     {
-        public FinancePage()
+        public WorkDayPage()
         {
             InitializeComponent();
+            List<Employee> emps = new List<Employee>() { new Employee() };
+            Employees.ItemsSource = emps;
         }
     }
 }

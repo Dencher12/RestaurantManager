@@ -14,16 +14,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Restaurant.Windows.MainWindowPages
+namespace Restaurant.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для StatusesPage.xaml
+    /// Логика взаимодействия для AdminWindow.xaml
     /// </summary>
-    public partial class SuppliesPage : Page
+    public partial class AdminWindow : Window
     {
-        public SuppliesPage()
+        public AdminWindow(string email, string role)
         {
             InitializeComponent();
+            this.Title = $"{email} ({role})";
             FetchData();
         }
 
@@ -31,24 +32,25 @@ namespace Restaurant.Windows.MainWindowPages
         {
             using (RestaurantManagerContext context = new RestaurantManagerContext())
             {
-                var sup = context.Supplies.ToList();
-                SuppliesList.ItemsSource = sup;
+                var users = context.Users.ToList();
+                UsersList.ItemsSource = users;
             }
         }
 
         private void OnEdit(object sender, RoutedEventArgs e)
         {
             var dataContext = ((Button)sender).DataContext;
-            Supply clone = (Supply)((Supply)dataContext).Clone();
-            EditSupplyWindow editSupplyWindow = new EditSupplyWindow() { DataContext = clone };
-            editSupplyWindow.ShowDialog();
-
-            if (editSupplyWindow.DialogResult == true)
+            User clone = (User)((User)dataContext).Clone();
+            EditUserWindow editUserWindow = new EditUserWindow() { DataContext = clone };
+            editUserWindow.PasswordField.Password = clone.Password;
+         
+            editUserWindow.ShowDialog();
+            if(editUserWindow.DialogResult == true)
             {
-                Supply sup = (Supply) editSupplyWindow.DataContext;
+                User user = (User) editUserWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Update(sup);
+                    context.Users.Update(user);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -57,16 +59,16 @@ namespace Restaurant.Windows.MainWindowPages
 
         private void OnAdd(object sender, RoutedEventArgs e)
         {
-            EditSupplyWindow editSupplyWindow = new EditSupplyWindow() { DataContext = new Supply() };
-            editSupplyWindow.Title = "Добавление новой поставки";
-            editSupplyWindow.ShowDialog();
+            EditUserWindow editUserWindow = new EditUserWindow() { DataContext = new User() };
+            editUserWindow.Title = "Добавление нового пользователя";
+            editUserWindow.ShowDialog();
 
-            if (editSupplyWindow.DialogResult == true)
+            if (editUserWindow.DialogResult == true)
             {
-                Supply sup = (Supply)editSupplyWindow.DataContext;
+                User user = (User) editUserWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Add(sup);
+                    context.Users.Add(user);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -75,17 +77,17 @@ namespace Restaurant.Windows.MainWindowPages
 
         private void OnDelete(object sender, RoutedEventArgs e)
         {
-            Supply supply = ((Supply)((Button)sender).DataContext);
+            User user = ((User)((Button)sender).DataContext);
             MessageBoxResult result = MessageBox.Show(
-                "Вы действительно хотите удалить поставку? \"" + supply.Date + " \" ?",
-                "Удаление поставки",
-                MessageBoxButton.YesNo,
+                "Вы действительно хотите удалить пользователя \"" + user.FullName + " \" ?", 
+                "Удаление пользователя", 
+                MessageBoxButton.YesNo, 
                 MessageBoxImage.Warning);
 
-            if (result == MessageBoxResult.Yes)
+            if(result == MessageBoxResult.Yes)
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Remove(supply);
+                    context.Users.Remove(user);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -98,8 +100,12 @@ namespace Restaurant.Windows.MainWindowPages
             String searchString = SearchField.Text;
             using (RestaurantManagerContext context = new RestaurantManagerContext())
             {
-                var sup = context.Supplies.Where(u => u.Date.ToString().Contains(searchString)).ToList();
-                SuppliesList.ItemsSource = sup;
+                var users = context.Users.Where(u => u.FullName.Contains(searchString) ||
+                                                     u.Email.Contains(searchString) ||
+                                                     u.Phone.Contains(searchString)).ToList();
+
+
+                UsersList.ItemsSource = users;
             }
         }
     }

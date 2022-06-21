@@ -3,10 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Restaurant.Windows"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Title="Вход" Height="225" Width="280"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource Background}"
+        >
+
     <Grid>
-        
+        <StackPanel Margin="10" Orientation="Vertical">
+
+            <TextBlock FontSize="20" HorizontalAlignment="Center" Margin="5" Text="Вход"></TextBlock>
+
+            <Label FontSize="16" Padding="0">Email</Label>
+            <TextBox x:Name="EmailBox" FontSize="16"></TextBox>
+
+            <Label FontSize="16" Padding="0">Пароль</Label>
+            <PasswordBox x:Name="PasswordBox" FontSize="16"></PasswordBox>
+
+            <Button Margin="0,10" FontSize="16" Click="OnLogin">Войти</Button>
+        </StackPanel>
     </Grid>
 </Window>

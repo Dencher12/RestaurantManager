@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Ресторан - alex34@gmail.com (Менеджер)" Height="450" Width="800"
+        FontSize="16">
+    <Grid Background="{StaticResource Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <StackPanel Background="{StaticResource AdditionalBackground}"  Orientation="Horizontal">
+            <TextBlock Text="Ресторан" FontSize="20" VerticalAlignment="Center" Margin="3,0,10,0"/>
+            <Menu Background="{StaticResource AdditionalBackground}" VerticalAlignment="Center">
+                <MenuItem FontSize="16" Margin="1" Header="Рабочие дни">
+                    <MenuItem FontSize="16" Margin="1" Click="OpenWorkDays" Header="Рабочие дни"/>
+                    <MenuItem FontSize="16" Margin="1" Click="OpenEmpWorkDays" Header="Сотрудники на сменах"/>
+                    <MenuItem FontSize="16" Margin="1" Click="OpenEmployeesPage" Header="Сотрудники"/>
+                    <MenuItem FontSize="16" Margin="1" Click="OpenPostsPage" Header="Должности"/>
+                </MenuItem>    
+                
+                <MenuItem FontSize="16" Margin="1" Header="Поставки">
+                    <MenuItem FontSize="16" Margin="1" Click="OpenSupplyProductsPage" Header="Товыры в поставке"/>
+                    <MenuItem FontSize="16" Margin="1" Click="OpenProductsPage" Header="Продукты"/>
+                    <MenuItem FontSize="16" Margin="1" Click="OpenSuppliesPage" Header="Поставки"/>
+                    <MenuItem FontSize="16" Margin="1" Click="OpenStatusesPage" Header="Статусы поставок"/>
+                </MenuItem>
+                <MenuItem FontSize="16" Margin="1" Click="OpenReservePage" Header="Бронь"/>
+                <MenuItem FontSize="16" Margin="1" Header="Статистика" Click="OpenStatisticPage"/>
+            </Menu>
+        </StackPanel>
+
+        <Frame NavigationUIVisibility="Hidden" x:Name="Content" Grid.Row="3"></Frame>
     </Grid>
 </Window>

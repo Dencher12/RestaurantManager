@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace Restaurant.Windows.MainWindowPages
         public TableReservesPage()
         {
             InitializeComponent();
+
+            TableReserve tr = new TableReserve();
+            tr.TableNumber = 1;
+            tr.DateTime = DateTime.Now;
+            tr.CustomerPhone = "+7 (234) 232-23-46";
+            tr.CustomersCount = 3;
+            tr.CustomerName = "Иванов Иван";
+
+            List<TableReserve> list = new List<TableReserve>() { tr };
+
+            TableReservesList.ItemsSource = list;
         }
     }
 }

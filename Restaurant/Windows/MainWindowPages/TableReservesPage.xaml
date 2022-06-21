@@ -9,6 +9,75 @@
       Title="TableReservesPage">
 
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Margin="5"></TextBox>
+            <Button Margin="5" Grid.Column="1">Поиск</Button>
+            <Button Margin="5" Grid.Column="2">Добавить</Button>
+        </Grid>
+
+
+        <ListView Padding="5" Grid.Row="1" x:Name="TableReservesList">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Background="{StaticResource Background}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Grid.Column="0"   FontSize="16" Text="ФИО: "></TextBlock>
+                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding CustomerName}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Номер стола: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding TableNumber}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Дата и время: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding ParsedDate}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Телефон: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding CustomerPhone}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Количество человек: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding CustomersCount}"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            <Button Grid.Column="1" Height="30">Редактировать</Button>
+                            <Button Margin="5,0,0,0" Grid.Column="2" Height="30">Удалить</Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

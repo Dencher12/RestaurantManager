@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,28 @@ namespace Restaurant.Windows
         public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnLogin(object sender, RoutedEventArgs e)
+        {
+            using (RestaurantManagerContext context = new RestaurantManagerContext())
+            {
+                try
+                {
+                    User user = context.Users.Where(u => u.Email == EmailBox.Text && u.Password == PasswordBox.Password).Single();
+                    Window window;
+                    if (user.IsAdmin == "1")
+                        window = new AdminWindow(user.Email, "Администратор");
+                    else
+                        window = new MainWindow(user.Email, "Менеджер");
+                        
+                    this.Hide();
+                    window.Show();
+                } catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show("Email или пароль неверны!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

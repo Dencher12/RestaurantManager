@@ -1,0 +1,80 @@
+﻿<Window x:Class="Restaurant.Windows.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Ресторан - nevski@gmail.com (Администратор)" Height="450" Width="800"
+        FontSize="16"
+        x:Name="AdminWindo">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Background="{StaticResource Background}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchField" Margin="5"></TextBox>
+            <Button Margin="5" Grid.Column="1" Click="OnSearch">Поиск</Button>
+            <Button Margin="5" Grid.Column="2" Click="OnAdd">Добавить</Button>
+        </Grid>
+
+        <ListView Grid.Row="1" x:Name="UsersList">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,5" BorderThickness="1" BorderBrush="Black" CornerRadius="10" Background="{StaticResource Background}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel x:Name="Fields" Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Grid.Column="0"   FontSize="16" Text="ФИО: "></TextBlock>
+                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding FullName}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Email: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding Email}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Телефон: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding Phone}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="16" Text="Админ?: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="{Binding IsAdminString}"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+
+
+                            <Button Grid.Column="1" Height="30" Click="OnEdit">Редактировать</Button>
+                            <Button Margin="5,0,0,0" Grid.Column="2" Click="OnDelete" Height="30">Удалить</Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

@@ -6,9 +6,78 @@
       xmlns:local="clr-namespace:Restaurant.Windows.MainWindowPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StatisticPage">
+      Title="StatisticPage"
+      FontSize="16">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="5"  Orientation="Vertical">
+            <TextBlock FontSize="20">Статистика прибыли</TextBlock>
+            <ComboBox>
+                <ComboBoxItem>2022</ComboBoxItem>
+            </ComboBox>
+            <ListView  x:Name="IncomeStatisticList">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Text="{Binding Month}"></TextBlock>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text=""></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Text="{Binding Sum}"></TextBlock>
+                        </Grid> 
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="1" Orientation="Vertical">
+            <TextBlock FontSize="20">Статистика отработанных часов</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <ComboBox>Январь</ComboBox>
+                <ComboBox Grid.Column="1">2022</ComboBox>
+            </Grid>
+            <ListView Focusable="False" x:Name="WorkHoursStatisticList">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Text="{Binding Name}"></TextBlock>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text=""></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Text="{Binding Hours}"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>

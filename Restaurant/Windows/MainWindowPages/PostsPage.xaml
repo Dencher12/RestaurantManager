@@ -1,4 +1,4 @@
-﻿<Page x:Class="Restaurant.Windows.MainWindowPages.WorkDaysPage"
+﻿<Page x:Class="Restaurant.Windows.MainWindowPages.PostsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,7 +28,8 @@
             <Button Margin="5" Grid.Column="2" Click="OnAdd" >Добавить</Button>
         </Grid>
 
-        <ListView Padding="5"  Grid.Row="1" x:Name="WorkDaysList">
+
+        <ListView Padding="5"  Grid.Row="1" x:Name="PostsList">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -46,20 +47,14 @@
                                 <ColumnDefinition Width="120"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
+
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Grid.Column="0" FontSize="16" Text="Дата: "></TextBlock>
-                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding FormatDate}"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Grid.Column="0" FontSize="16" Text="Деньги в кассе утром: "></TextBlock>
-                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding MorningCash}"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Grid.Column="0" FontSize="16" Text="Деньги в кассе вечером: "></TextBlock>
-                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding EveningCash}"></TextBlock>
+                                    <TextBlock Grid.Column="0" FontSize="16" Text="Должность: "></TextBlock>
+                                    <TextBlock Grid.Column="1" FontSize="16" Text="{Binding Title}"></TextBlock>
                                 </StackPanel>
                             </StackPanel>
+
 
                             <Button Grid.Column="1" Height="30" Click="OnEdit">Редактировать</Button>
                             <Button Margin="5,0,0,0" Grid.Column="2" Height="30" Click="OnDelete">Удалить</Button>

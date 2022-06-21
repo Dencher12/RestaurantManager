@@ -1,4 +1,5 @@
-﻿using Restaurant.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.Models;
 using Restaurant.Windows.MainWindowPages.EditWindows;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Restaurant.Windows.MainWindowPages
 {
     /// <summary>
-    /// Логика взаимодействия для StatusesPage.xaml
+    /// Логика взаимодействия для EmployeesPage.xaml
     /// </summary>
-    public partial class SuppliesPage : Page
+    public partial class EmployeesPage : Page
     {
-        public SuppliesPage()
+        public EmployeesPage()
         {
             InitializeComponent();
             FetchData();
@@ -31,24 +33,24 @@ namespace Restaurant.Windows.MainWindowPages
         {
             using (RestaurantManagerContext context = new RestaurantManagerContext())
             {
-                var sup = context.Supplies.ToList();
-                SuppliesList.ItemsSource = sup;
+                var employees = context.Employees.Include(e => e.Post).ToList();
+                EmployeesList.ItemsSource = employees;
             }
         }
 
         private void OnEdit(object sender, RoutedEventArgs e)
         {
             var dataContext = ((Button)sender).DataContext;
-            Supply clone = (Supply)((Supply)dataContext).Clone();
-            EditSupplyWindow editSupplyWindow = new EditSupplyWindow() { DataContext = clone };
-            editSupplyWindow.ShowDialog();
+            Employee clone = (Employee)((Employee)dataContext).Clone();
+            EditEmployeeWindow editEmployeeWindow = new EditEmployeeWindow(clone);
+            editEmployeeWindow.ShowDialog();
 
-            if (editSupplyWindow.DialogResult == true)
+            if (editEmployeeWindow.DialogResult == true)
             {
-                Supply sup = (Supply) editSupplyWindow.DataContext;
+                Employee employee = (Employee) editEmployeeWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Update(sup);
+                    context.Employees.Update(employee);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -57,16 +59,16 @@ namespace Restaurant.Windows.MainWindowPages
 
         private void OnAdd(object sender, RoutedEventArgs e)
         {
-            EditSupplyWindow editSupplyWindow = new EditSupplyWindow() { DataContext = new Supply() };
-            editSupplyWindow.Title = "Добавление новой поставки";
-            editSupplyWindow.ShowDialog();
+            EditEmployeeWindow editEmployeeWindow = new EditEmployeeWindow(new Employee());
+            editEmployeeWindow.Title = "Добавление нового сотрудника";
+            editEmployeeWindow.ShowDialog();
 
-            if (editSupplyWindow.DialogResult == true)
+            if (editEmployeeWindow.DialogResult == true)
             {
-                Supply sup = (Supply)editSupplyWindow.DataContext;
+                Employee employee = (Employee) editEmployeeWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Add(sup);
+                    context.Employees.Attach(employee);
                     context.SaveChanges();
                     FetchData();
                 }
@@ -75,31 +77,33 @@ namespace Restaurant.Windows.MainWindowPages
 
         private void OnDelete(object sender, RoutedEventArgs e)
         {
-            Supply supply = ((Supply)((Button)sender).DataContext);
+            Employee employee = ((Employee)((Button)sender).DataContext);
             MessageBoxResult result = MessageBox.Show(
-                "Вы действительно хотите удалить поставку? \"" + supply.Date + " \" ?",
-                "Удаление поставки",
+                "Вы действительно хотите удалить сотрудника \"" + employee.FullName + " \" ?",
+                "Удаление сотрудника",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
-                    context.Supplies.Remove(supply);
+                    context.Employees.Remove(employee);
                     context.SaveChanges();
                     FetchData();
                 }
         }
-
-
 
         private void OnSearch(object sender, RoutedEventArgs e)
         {
             String searchString = SearchField.Text;
             using (RestaurantManagerContext context = new RestaurantManagerContext())
             {
-                var sup = context.Supplies.Where(u => u.Date.ToString().Contains(searchString)).ToList();
-                SuppliesList.ItemsSource = sup;
+                var employees = context.Employees.Where(u => 
+                u.FullName.Contains(searchString) || 
+                u.Salary.ToString().Contains(searchString) || 
+                u.Post.Title.Contains(searchString)).ToList();
+
+                EmployeesList.ItemsSource = employees;
             }
         }
     }
