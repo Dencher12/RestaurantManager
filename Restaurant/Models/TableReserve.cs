@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Restaurant.Models
 {
-    public partial class TableReserve
+    public partial class TableReserve  : ICloneable
     {
         public int Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
         public int TableNumber { get; set; }
         public string CustomerPhone { get; set; } = null!;
         public int? CustomersCount { get; set; }
@@ -16,8 +16,13 @@ namespace Restaurant.Models
         {
             get
             {
-                return this.DateTime.ToString("dd/MM/yyyy HH:mm");
+                return this.DateTime.ToString("dd/MM/yyyy");
             }
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

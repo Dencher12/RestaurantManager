@@ -22,9 +22,9 @@
                 <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBox Margin="5"></TextBox>
-            <Button Margin="5" Grid.Column="1">Поиск</Button>
-            <Button Margin="5" Grid.Column="2">Добавить</Button>
+            <TextBox x:Name="SearchField" Margin="5"></TextBox>
+            <Button Margin="5" Grid.Column="1" Click="OnSearch">Поиск</Button>
+            <Button Margin="5" Grid.Column="2" Click="OnAdd" >Добавить</Button>
         </Grid>
 
 
@@ -58,7 +58,7 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="16" Text="Дата и время: "></TextBlock>
+                                    <TextBlock FontSize="16" Text="Дата брони: "></TextBlock>
                                     <TextBlock FontSize="16" Text="{Binding ParsedDate}"></TextBlock>
                                 </StackPanel>
 
@@ -72,8 +72,8 @@
                                     <TextBlock FontSize="16" Text="{Binding CustomersCount}"></TextBlock>
                                 </StackPanel>
                             </StackPanel>
-                            <Button Grid.Column="1" Height="30">Редактировать</Button>
-                            <Button Margin="5,0,0,0" Grid.Column="2" Height="30">Удалить</Button>
+                            <Button Grid.Column="1" Height="30" Click="OnEdit">Редактировать</Button>
+                            <Button Margin="5,0,0,0" Grid.Column="2" Height="30" Click="OnDelete">Удалить</Button>
                         </Grid>
                     </Border>
                 </DataTemplate>

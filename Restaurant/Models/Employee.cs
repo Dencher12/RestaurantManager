@@ -7,7 +7,7 @@ namespace Restaurant.Models
     {
         public Employee()
         {
-            EmployeeWorkDays = new HashSet<EmployeeWorkDay>();
+            EmployeeWorkDays = new List<EmployeeWorkDay>();
         }
 
         public int Id { get; set; }
@@ -16,7 +16,12 @@ namespace Restaurant.Models
         public decimal Salary { get; set; }
 
         public virtual Post Post { get; set; } = null!;
-        public virtual ICollection<EmployeeWorkDay> EmployeeWorkDays { get; set; }
+        public virtual List<EmployeeWorkDay> EmployeeWorkDays { get; set; }
+
+        public String WorkTime
+        {
+            get { return $"{ new Random().Next(8, 32) } / 160 "; }
+        }
 
         public object Clone()
         {

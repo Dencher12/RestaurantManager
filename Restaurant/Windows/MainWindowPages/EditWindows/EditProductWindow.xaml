@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant.Windows.MainWindowPages.EditWindows"
         mc:Ignorable="d"
-        Title="Редактирование пользователя" Height="323" Width="308"
+        Title="Редактирование продукта" Height="323" Width="308"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Background}">

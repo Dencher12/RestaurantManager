@@ -17,7 +17,7 @@
 
         <StackPanel Margin="5"  Orientation="Vertical">
             <TextBlock FontSize="20">Статистика прибыли</TextBlock>
-            <ComboBox>
+            <ComboBox SelectedIndex="0">
                 <ComboBoxItem>2022</ComboBoxItem>
             </ComboBox>
             <ListView  x:Name="IncomeStatisticList">
@@ -51,11 +51,28 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
-                <ComboBox>Январь</ComboBox>
-                <ComboBox Grid.Column="1">2022</ComboBox>
+
+                <ComboBox DropDownClosed="ComboBox_DropDownClosed" SelectedIndex="5">
+                    <ComboBoxItem>Январь</ComboBoxItem>
+                    <ComboBoxItem>Фераль</ComboBoxItem>
+                    <ComboBoxItem>Март</ComboBoxItem>
+                    <ComboBoxItem>Апрель</ComboBoxItem>
+                    <ComboBoxItem>Июнь</ComboBoxItem>
+                    <ComboBoxItem>Июль</ComboBoxItem>
+                    <ComboBoxItem>Август</ComboBoxItem>
+                    <ComboBoxItem>Сентябрь</ComboBoxItem>
+                    <ComboBoxItem>Октябрь</ComboBoxItem>
+                    <ComboBoxItem>Ноябрь</ComboBoxItem>
+                    <ComboBoxItem>Декабрь</ComboBoxItem>
+                </ComboBox>
+                <ComboBox DropDownClosed="ComboBox_DropDownClosed" Grid.Column="1" SelectedIndex="3">
+                    <ComboBoxItem>2019</ComboBoxItem>
+                    <ComboBoxItem>2020</ComboBoxItem>
+                    <ComboBoxItem>2021</ComboBoxItem>
+                    <ComboBoxItem>2022</ComboBoxItem>
+                </ComboBox>
             </Grid>
-            <ListView Focusable="False" x:Name="WorkHoursStatisticList">
+            <ListView x:Name="WorkHoursList" Focusable="False">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -71,9 +88,9 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Text="{Binding Name}"></TextBlock>
+                            <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Text="{Binding FullName}"></TextBlock>
                             <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text=""></TextBlock>
-                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Text="{Binding Hours}"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Text="{Binding WorkTime}"></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
