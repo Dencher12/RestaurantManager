@@ -59,12 +59,12 @@ namespace Restaurant.Windows.MainWindowPages
         private void OnAdd(object sender, RoutedEventArgs e)
         {
             EditPostWindow postsWindow = new EditPostWindow() { DataContext = new Post() };
-            postsWindow.Title = "Добавление нового статуса поставки";
+            postsWindow.Title = "Добавление новой должности";
             postsWindow.ShowDialog();
 
             if (postsWindow.DialogResult == true)
             {
-                Post post = (Post)postsWindow.DataContext;
+                Post post = (Post) postsWindow.DataContext;
                 using (RestaurantManagerContext context = new RestaurantManagerContext())
                 {
                     context.Posts.Add(post);
